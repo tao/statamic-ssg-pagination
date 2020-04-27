@@ -14,3 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+
+// http://localhost:8000/api/collections/articles/entries?fields=id,title,date&limit=5&page=2
+Route::statamic('/api/partials/{collection}', 'pagination._articles', ['layout' => null]);

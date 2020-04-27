@@ -5,33 +5,52 @@
             <h1>{{ title }}</h1>
             {{ content | widont }}
         </header>
+        <div id="js_paginate_me">
+            {{ collection:articles as="articles" limit="5" paginate="true" }}
+                {{ if no_results }}
+                <h2 class="text-3xl italic tracking-tight">Feel the rhythm! Feel the rhyme! Get on up, it's writing time! Cool
+                    writings!</h2>
+                {{ /if }}
 
-        {{ collection:articles as="articles" }}
-        {{ if no_results }}
-        <h2 class="text-3xl italic tracking-tight">Feel the rhythm! Feel the rhyme! Get on up, it's writing time! Cool
-            writings!</h2>
-        {{ /if }}
+                {{ articles }}
+                <div class="mb-2">
+                    <a href="{{ url }}" class="text-lg hover:text-teal tracking-tight leading-tight font-bold">
+                        &mdash; {{ title | widont }}
+                    </a>
+                </div>
+                {{ /articles }}
 
-        {{ articles }}
-        <div class="mb-2">
-            <a href="{{ url }}" class="text-lg hover:text-teal tracking-tight leading-tight font-bold">
-                {{ title | widont }}
-            </a>
+                {{ paginate }}
+                <div class="flex justify-between text-xl -mx-16 pt-16 font-bold">
+                    {{ if current_page|subtract:1 > 0 }}
+                        <button onClick="fetchPagination({{ current_page|subtract:1 }})" class="cursor-pointer font-bold hover:text-teal-600 {{ ! prev_page ??= 'opacity-25' }}">
+                            &larr; Back to the future
+                        </button>
+                    {{ /if }}
+                    {{ if !no_results }}
+                        <button onClick="fetchPagination({{ current_page|add:1 }})" class="cursor-pointer font-bold hover:text-teal-600">
+                            Forward to the past &rarr;
+                        </button>
+                    {{ /if }}
+                </div>
+                {{ /paginate }}
+            {{ /collection:articles }}
         </div>
-        {{ /articles }}
-
-        {{ if total_results > 10 }}
-        {{ paginate }}
-        <div class="flex justify-between text-xl -mx-16 pt-16 font-bold">
-            <a href="{{ prev_page }}" class="{{ ! prev_page ??= 'opacity-25' }}">
-                &larr; Back to the future
-            </a>
-            <a href="{{ next_page }}">
-                Forward to the past &rarr;
-            </a>
-        </div>
-        {{ /paginate }}
-        {{ /if }}
-        {{ /collection:articles }}
     </article>
 </div>
+
+<script>
+    function fetchPagination(page) {
+
+        let baseUrl = '/api/partials/articles'
+        let url = (page ? `${baseUrl}?page=${page}` : baseUrl)
+
+        fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('#js_paginate_me').innerHTML = html;
+        })
+    }
+
+    fetchPagination();
+</script>
