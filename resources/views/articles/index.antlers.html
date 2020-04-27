@@ -6,35 +6,7 @@
             {{ content | widont }}
         </header>
         <div id="js_paginate_me">
-            {{ collection:articles as="articles" limit="5" paginate="true" }}
-                {{ if no_results }}
-                <h2 class="text-3xl italic tracking-tight">Feel the rhythm! Feel the rhyme! Get on up, it's writing time! Cool
-                    writings!</h2>
-                {{ /if }}
-
-                {{ articles }}
-                <div class="mb-2">
-                    <a href="{{ url }}" class="text-lg hover:text-teal tracking-tight leading-tight font-bold">
-                        &mdash; {{ title | widont }}
-                    </a>
-                </div>
-                {{ /articles }}
-
-                {{ paginate }}
-                <div class="flex justify-between text-xl -mx-16 pt-16 font-bold">
-                    {{ if current_page|subtract:1 > 0 }}
-                        <button onClick="fetchPagination({{ current_page|subtract:1 }})" class="cursor-pointer font-bold hover:text-teal-600 {{ ! prev_page ??= 'opacity-25' }}">
-                            &larr; Back to the future
-                        </button>
-                    {{ /if }}
-                    {{ if !no_results }}
-                        <button onClick="fetchPagination({{ current_page|add:1 }})" class="cursor-pointer font-bold hover:text-teal-600">
-                            Forward to the past &rarr;
-                        </button>
-                    {{ /if }}
-                </div>
-                {{ /paginate }}
-            {{ /collection:articles }}
+            {{ partial:pagination/articles }}
         </div>
     </article>
 </div>
@@ -52,5 +24,5 @@
         })
     }
 
-    fetchPagination();
+    // fetchPagination();
 </script>
