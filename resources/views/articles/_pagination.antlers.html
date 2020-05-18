@@ -1,0 +1,15 @@
+{{ collection from="articles" as="articles" limit="5" paginate="true" }}
+    
+    {{ partial:partials/paginate/no_results }}
+
+    {{ articles }}
+    <div class="mb-2">
+        <a href="{{ url }}" class="text-lg hover:text-teal tracking-tight leading-tight font-bold">
+            &mdash; {{ title | widont }}
+        </a>
+    </div>
+    {{ /articles }}
+
+    {{ partial:partials/paginate/widget }}
+
+{{ /collection }}

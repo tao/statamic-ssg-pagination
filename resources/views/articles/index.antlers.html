@@ -5,24 +5,11 @@
             <h1>{{ title }}</h1>
             {{ content | widont }}
         </header>
-        <div id="js_paginate_me">
-            {{ partial:pagination/articles }}
+
+        <div id="js-paginate-me">
+            {{ partial:articles/pagination }}
         </div>
     </article>
 </div>
 
-<script>
-    function fetchPagination(page) {
-
-        let baseUrl = '/api/partials/articles'
-        let url = (page ? `${baseUrl}?page=${page}` : baseUrl)
-
-        fetch(url)
-        .then(response => response.text())
-        .then(html => {
-            document.querySelector('#js_paginate_me').innerHTML = html;
-        })
-    }
-
-    // fetchPagination();
-</script>
+{{ partial:partials/paginate/script route="articles" }}

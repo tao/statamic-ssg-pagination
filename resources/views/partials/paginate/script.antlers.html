@@ -1,0 +1,27 @@
+<script type="text/javascript">
+    // if javascript is enabled, show the page count and next page button
+    // otherwise the warning to enable javascript is shown automatically
+    function showJSPagination() {
+        document.querySelector('#js-pages-count').style.display = 'block';
+        document.querySelector('#js-next-page').style.display = 'block';
+        // document.querySelector('#js-pages-count').removeAttribute('hidden');
+        // document.querySelector('#js-next-page').removeAttribute('hidden');
+    }
+
+    function fetchPagination(page) {
+        let baseUrl = '/api/partials/{{ route }}'
+        let url = (page ? `${baseUrl}/${page}?page=${page}` : baseUrl)
+
+        // set loading state
+        document.querySelector('#js-pages-count').innerHTML = 'Loading, please wait...';
+
+        fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.querySelector('#js-paginate-me').innerHTML = html;
+            showJSPagination()
+        })
+    }
+
+    showJSPagination()
+</script>

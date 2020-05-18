@@ -1,0 +1,24 @@
+{{ paginate }}
+    <ul class="pagination">
+        {{ if current_page|subtract:1 > 0 }}
+        <button onClick="fetchPagination({{ current_page|subtract:1 }})">
+            <li class="py-2 px-3 ml-0 hover:bg-primary border-r">
+                Previous
+            </li>
+        </button>
+        {{ /if }}
+        
+        <li class="flex-1 py-2 px-3">
+            <span id="js-pages-count" style="display: hidden;">{{ current_page }} of {{ total_pages }} pages</span>
+            <noscript>Please enable Javascript to view the other speeches.</noscript>
+        </li>
+        
+        {{ if current_page < total_pages }}
+        <button id="js-next-page" style="display: hidden;" onClick="fetchPagination({{ current_page|add:1 }})">
+            <li class="py-2 px-3 hover:bg-primary border-l">
+                Next
+            </li>
+        </button>
+        {{ /if }}
+    </ul>
+{{ /paginate }}
