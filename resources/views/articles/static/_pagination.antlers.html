@@ -1,0 +1,11 @@
+{{ partial:partials/paginate/no_results }}
+
+{{ entries }}
+    <div class="mb-2">
+        <a href="{{ url }}" class="text-lg hover:text-teal tracking-tight leading-tight font-bold">
+            &mdash; {{ title | widont }}
+        </a>
+    </div>
+{{ /entries }}
+
+{{ partial:partials/paginate/widget }}

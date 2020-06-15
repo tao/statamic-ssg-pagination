@@ -60,8 +60,8 @@ return [
     */
 
     'urls' => [
-        '/api/partials/articles/1',
-        '/api/partials/articles/2',
+        // '/api/partials/articles/1',
+        // '/api/partials/articles/2',
     ],
 
     /*
@@ -75,6 +75,23 @@ return [
 
     'exclude' => [
         //
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pagination Partials
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define a list of collections to generate for pagination.
+    |
+    */
+
+    'paginate' => [
+        'articles' => [
+            'collection' => 'articles',
+            'template' => 'articles.static._pagination',
+            'paginate' => 10,
+        ],
     ],
 
     /*
